@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static String line(int n, int i) {
+        int space = n - i - 1;
+        int xCount = 1 + 2 * i;
+        StringBuilder sb = new StringBuilder();
+
+        for (int j = 0; j < space; j++) {
+            sb.append(".");
+        }
+        for (int j = 0; j < xCount; j++) {
+            sb.append("X");
+        }
+        for (int j = 0; j < space; j++) {
+            sb.append(".");
+        }
+
+        return sb.toString();
+    }
+    
+    public static void drawPyramid(int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.println(line(n, i));
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n;
+
+        System.out.print("Enter the number of lines: ");
+        n = scanner.nextInt();
+        drawPyramid(n);
+    }
+}

@@ -1,0 +1,20 @@
+name: chemdata
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.10
+  - dask=2024.11.2
+  - dask-ml=2024.4.4
+  - rdkit=2024.09.1
+  - ipykernel
+  - notebook
+  - pandas
+  - numpy
+  - pip:
+      - dask-expr==1.1.19
+      - deepchem
+      - snakemake==7.24.1
+      - pulp==2.6.0
+

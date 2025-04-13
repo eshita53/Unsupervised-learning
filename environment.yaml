@@ -1,0 +1,11 @@
+name: datascience_6
+channels:
+  - conda-forge
+dependencies:
+  - pandas
+  - numpy
+  - pip
+  - pyyaml
+  - scipy
+  - matplotlib
+  - scanpy
