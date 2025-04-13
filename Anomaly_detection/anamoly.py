@@ -24,7 +24,7 @@ class Anomaly:
         X = self.df.iloc[:,:n-1] # ignore machine status columns
         X = X.fillna(X.mean()) # we can use last point as missing values
         self.X = X 
-        print(self.X)
+        # print(self.X)
         
 
     def anomaly_detection_with_train_test(self, model, X_train, X_test, local_outlier = False):
@@ -50,13 +50,6 @@ class Anomaly:
 
         """Anomaly detection for complete dataframe"""
 
-        # dataframe = self.drop_nan_columns()
-
-        # m, n = dataframe.shape
-        # X = dataframe.iloc[:,:n-1] # ignore machine status columns
-        # X.fillna(X.mean()) # we can use last point as missing values
-        
-
         scaler=StandardScaler()
         X = scaler.fit_transform(self.X)
 
@@ -78,14 +71,8 @@ class Anomaly:
 
         """Split dataframe into train-test splits"""
 
-        # dataframe = self.drop_nan_columns()
-        # m, n = dataframe.shape
-        # X = dataframe.iloc[:,:n-1] 
-        # X = X.fillna(X.mean()) 
-
         scaler=StandardScaler()
         X = scaler.fit_transform(self.X)
-        # y = dataframe['machine_status'].apply(lambda x: 1 if x=="NORMAL" else -1)
         y = self.return_target()
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=size, random_state=42)
 
@@ -185,25 +172,22 @@ class Anomaly:
     def return_tpr_fpr_auc(self,model, X_train, y_test, X_test = None):
         """when X_test is none. That means no split has been done. X_train and y_test are the unspli
         ted data"""
-       
-        if X_test is not None:
-            model.fit(X_train)
-            y_pred = model.predict(X_test)
-        else:
-            model.fit(X_train)
-            y_pred = model.predict(X_train)
         
         if str(model).startswith('LocalOutlierFactor'):
             if X_test is not None:
                 y_pred = model.fit_predict(X_test)
             else:
                 y_pred = model.fit_predict(X_train)
-            y_scores = - model.negative_outlier_factor_
+                y_scores = - model.negative_outlier_factor_
         else:
             if X_test is not None:
+                model.fit(X_train)
+                y_pred = model.predict(X_test)
                 y_scores = model.decision_function(X_test)
 
             else:
+                model.fit(X_train)
+                y_pred = model.predict(X_train) 
                 y_scores = model.decision_function(X_train)
         fpr, tpr, thresholds = roc_curve(y_test, y_scores)
         roc_auc = auc(fpr, tpr)
@@ -218,7 +202,7 @@ class Anomaly:
         plt.ylim([0.0, 1.05])
         plt.xlabel('False Positive Rate')
         plt.ylabel('True Positive Rate')
-        plt.title(f'AUC Curve {model_name}')
+        plt.title(f'ROCAUC Curve {model_name}')
         plt.legend(loc="lower right")
         plt.show()
 
