@@ -1,1 +1,2 @@
 # Anomaly Detection
+In this assignment, we need to work with the anomaly detection of a water pump sensor data. In the study case of anomaly detection, they proposed a hypothesis stating that the sensor readings of a pump will generate not normal values in case of an (upcoming) failure, and these can be determined with anomaly detection [Study Case: Anomaly Detection]. In this assignment, we have analyzed the plot to evaluate the algorithm performance, assess the algorithm, evaluate the hypothesis, and also find the best configuration for the best selected model. 
