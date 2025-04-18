@@ -1,0 +1,5 @@
+synthetic: '/data/datasets/DS6/cluster_chem/non_natural_products.txt'
+natural: '/data/datasets/DS6/cluster_chem/all_natural_products.txt'
+natural_sub: '/data/datasets/DS6/cluster_chem/subset_natural_products.txt'
+umap_plot: '/homes/rmeshita/Documents/Datascience-6/Unsupervised_learning/chemical_assignments/image/'
+log : 'logs/'

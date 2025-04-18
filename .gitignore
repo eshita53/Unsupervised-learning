@@ -173,8 +173,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 assignments_1/
-.csv
+chemical_assignments/*.csv
 Anomaly_detection/sensor.csv
 k_means_clustering/
-jaava.txt
-Anomaly_detection/plot-analysis copy.ipynb
+
+logs
+cluster_results

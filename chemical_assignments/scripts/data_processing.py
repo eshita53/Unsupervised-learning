@@ -5,6 +5,7 @@ from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import RDKFingerprint
 from rdkit.Chem.rdFingerprintGenerator import GetRDKitFPGenerator
 import pandas as pd
+import numpy as np
 
 class Preprocessing:
     
@@ -69,28 +70,13 @@ class Preprocessing:
         properties = {
         #Basic Physicochemical Properties
         "Molecular Weight": Descriptors.MolWt(mol),
-        "Heavy atoms": Descriptors.HeavyAtomCount(mol),
         # Lipophilicity and Solubility
         "logP": Descriptors.MolLogP(mol),
-        "Refractivity": Descriptors.MolMR(mol),
         # Polarity
         "TPSA": rdMolDescriptors.CalcTPSA(mol),
-        "fraction csp3": rdMolDescriptors.CalcFractionCSP3(mol),
         # Hydrogen Bonding
         "H-Bond Donors": Descriptors.NumHDonors(mol),
         "H-Bond Acceptors": Descriptors.NumHAcceptors(mol),
-        # Rotational and Flexibility
-        "Rotatable bonds": Descriptors.NumRotatableBonds(mol),
-        "Num rings": rdMolDescriptors.CalcNumRings(mol),
-        # Aromaticity and Structural Features
-        "Aromatic Rings": rdMolDescriptors.CalcNumAromaticRings(mol),
-        "Aliphatic_rings": rdMolDescriptors.CalcNumAliphaticRings(mol),
-        # steric and shape functions
-        "Rotatable Bonds": Descriptors.NumRotatableBonds(mol),
-        "Stereo centers": len(Chem.FindMolChiralCenters(mol, includeUnassigned=True)),
-        # electronic properties
-        "Charge": Chem.rdmolops.GetFormalCharge(mol),
-        "Valence electrons": Descriptors.NumValenceElectrons(mol),
         }
         return properties
     
@@ -113,3 +99,17 @@ class Preprocessing:
                 return False
         except:
             return False
+    
+    def get_features(self, fingetprint_type):
+        """ Generates a complete feature matrix combining molecular 
+        fingerprints and chemical properties and returns it
+        """
+        self.remove_invalid_smile()
+        self.convert_smile_to_mol()
+        self.finger_print_add(fingetprint_type)
+        fp_df = self.get_fp_csmile_df() 
+        chem_prop_df = self.get_mole_prop_df()
+        
+        fp_mat = pd.concat([fp_df.iloc[:,:4],pd.DataFrame(np.array(fp_df[0].tolist()))],axis=1)
+        
+        return pd.concat([fp_mat.reset_index(drop=True),chem_prop_df.iloc[:,4:]],axis =1)
