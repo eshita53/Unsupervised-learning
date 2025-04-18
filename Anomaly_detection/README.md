@@ -7,4 +7,10 @@ We have used pump sensor data from [Kaggle](https://www.kaggle.com/datasets/npha
 
 ## File and Directories
 
+### Python Files
+- **anomaly.py** - Helper class to train and test anomaly detection models, along utility function to plot data and visualize the results. 
+
+### Notebooks
+- **best-model.ipynb** - Notebook for analysis and finding the best anomaly detection model 
+- **plot-analysis.ipynb** - This notebook is used for plotting and analyzing the results of anomaly detection. The main goal of the analysis is to identify unreliable sensors and compare the performance of different anomaly detection algorithms.
 
