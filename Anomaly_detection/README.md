@@ -14,3 +14,8 @@ We have used pump sensor data from [Kaggle](https://www.kaggle.com/datasets/npha
 - **best-model.ipynb** - Notebook for analysis and finding the best anomaly detection model 
 - **plot-analysis.ipynb** - This notebook is used for plotting and analyzing the results of anomaly detection. The main goal of the analysis is to identify unreliable sensors and compare the performance of different anomaly detection algorithms.
 
+## Installation Instructions
+**Clone the Repository and Set Up Dependencies**: Follow [these instructions](https://github.com/eshita53/Unsupervised-learning/blob/main/README.md#installation) to clone the repository and set up the dependencies.
+
+### Run
+Before running the notebooks, don't forget to change the kernel to the appropriate environment.  
