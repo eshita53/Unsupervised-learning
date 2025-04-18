@@ -16,14 +16,9 @@ Run the following command inside the folder to create the environment:
 `conda env create -f environment.yml`
 4. Use the following command to activate the environment:
 `conda activate datascience_6`
-5. Before executing the script ensure the environment is activated.
+5. Before executing the script ensure the environment is activated. If you're using Jupyter Notebook, make sure the environment is selected from the Kernel tab:
+   **Kernel → Change kernel → datascience_6**
 
 ## Run
 1. Open the folder for the assignment you want to execute.
 2. Follow the instructions provided in that folder to run the specific assignment. Each folder contains details on how to execute the scripts related to that assignment.
-
-
-
-
-
-
