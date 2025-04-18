@@ -24,7 +24,6 @@ class Anomaly:
         X = self.df.iloc[:,:n-1] # ignore machine status columns
         X = X.fillna(X.mean()) # we can use last point as missing values
         self.X = X 
-        # print(self.X)
         
 
     def anomaly_detection_with_train_test(self, model, X_train, X_test, local_outlier = False):
@@ -96,6 +95,7 @@ class Anomaly:
 
     def drop_nan_columns(self, nan_threshold = 34):
         """ Drop columns if percentage of nan values of a colums is more than the threshold values"""
+        
         cols = [k for k,v in self.percantage_missing_values().items() if v>=nan_threshold]
         self.removed_cols = cols
         return self.df.drop(columns=cols)
@@ -170,8 +170,7 @@ class Anomaly:
         disp.plot()
 
     def return_tpr_fpr_auc(self,model, X_train, y_test, X_test = None):
-        """when X_test is none. That means no split has been done. X_train and y_test are the unspli
-        ted data"""
+        """when X_test is none. That means no split has been done. X_train and y_test are the unsplited data"""
         
         if str(model).startswith('LocalOutlierFactor'):
             if X_test is not None:
@@ -194,6 +193,9 @@ class Anomaly:
         return fpr, tpr,roc_auc
     
     def plot_auc(self,model_name, fpr, tpr,roc_auc):
+
+        """plot Area under curve (AUC)"""
+        
         plt.figure(figsize=(8, 6))
         plt.plot(fpr, tpr, color='darkorange', 
                     label=f'ROC curve (AUC = {roc_auc:.2f})')
