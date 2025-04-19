@@ -15,7 +15,10 @@ class Preprocessing:
 
     def __init__(self, df):
         self.df = df
-        
+    def check_compound_name(self):
+        if 'name' in self.df.columns:
+            self.df = self.df.rename(columns={'name': 'compound_name'})
+        self.df['compound_name'] = self.df['compound_name'].fillna('Not-Specified')
     def remove_invalid_smile(self):
         self.df[self.VALID_COL] = self.df[self.SMILE_COL].apply(self.detect_invalid_smile)
         self.df = self.df[self.df[self.VALID_COL] == True]
@@ -103,6 +106,7 @@ class Preprocessing:
         """ Generates a complete feature matrix combining molecular 
         fingerprints and chemical properties and returns it
         """
+        self.check_compound_name()
         self.remove_invalid_smile()
         self.convert_smile_to_mol()
         self.finger_print_add(fingerprint_type)

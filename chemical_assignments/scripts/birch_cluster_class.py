@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 class BIRCHClustering:
     """Handles BIRCH clustering operations"""
-    def __init__(self, threshold=0.2, branching_factor=100, n_clusters=200):
+    def __init__(self, threshold=0.3, branching_factor=100, n_clusters=200):
         self.model = Birch(
             threshold=threshold,
             branching_factor=branching_factor,

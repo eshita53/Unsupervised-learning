@@ -178,4 +178,5 @@ Anomaly_detection/sensor.csv
 k_means_clustering/
 
 logs
-cluster_results
+*.parquet
+*.npy

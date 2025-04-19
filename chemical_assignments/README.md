@@ -14,7 +14,6 @@ identify the natural compounds structurally similar to synthetic compounds for p
 - **scripts/birch.py**: Script for full clustering workflow with BIRCH including data loading, processing and clustering
 - **scripts/butina_clustering.py**: Class for handling Butina clustering
 - **scripts/data_processing.py**: Data and Feature Processing script
-- **scripts/main.py**: 
 - **umap_visualizer.py**: Script for UMAP visualization
 
 ### Notebooks

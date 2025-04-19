@@ -82,7 +82,7 @@ class ButinaClustering():
 
         for cluster in self.clusters_:
             if len(cluster) < min_clusters:
-                continue  # Skip clusters with only one member
+                continue  # Skip clusters with defined mninimum cluster number
 
             fps = [self.finger_print_data[i] for i in cluster]
             similarities = []
@@ -117,7 +117,7 @@ class ButinaClustering():
                 '0.9': np.mean(np.array(all_similarities) >= 0.9) * 100 if all_similarities else 0
             }
         }
-
+    
     def plot_intra_cluster_similarity(self, min_clusters, output_file=None):
         """Visualize intra-cluster similarity distribution"""
         intra_similarities_ = self._calculate_intra_similarities(min_clusters=min_clusters)
