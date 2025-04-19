@@ -76,12 +76,12 @@ class ButinaClustering():
             'size_distribution': cluster_sizes
         }
 
-    def _calculate_intra_similarities(self):
+    def _calculate_intra_similarities(self, min_clusters=2):
         """Calculate intra-cluster Tanimoto similarities"""
-        self.intra_similarities_ = []
+        intra_similarities_ = []
 
         for cluster in self.clusters_:
-            if len(cluster) < 2:
+            if len(cluster) < min_clusters:
                 continue  # Skip clusters with only one member
 
             fps = [self.finger_print_data[i] for i in cluster]
@@ -90,13 +90,15 @@ class ButinaClustering():
             for fp1, fp2 in combinations(fps, 2):
                 similarities.append(DataStructs.TanimotoSimilarity(fp1, fp2))
 
-            self.intra_similarities_.append(similarities)
+            intra_similarities_.append(similarities)
+        
+        return intra_similarities_
 
     def get_similarity_stats(self):
         """Calculate statistics about intra-cluster similarities"""
 
         if not self.intra_similarities_:
-            self._calculate_intra_similarities()
+            self.intra_similarities_ = self._calculate_intra_similarities()
 
         all_similarities = [
             sim for sims in self.intra_similarities_ for sim in sims]
@@ -116,20 +118,20 @@ class ButinaClustering():
             }
         }
 
-    def plot_intra_cluster_similarity(self, output_file=None):
+    def plot_intra_cluster_similarity(self, min_clusters, output_file=None):
         """Visualize intra-cluster similarity distribution"""
-        if not self.intra_similarities_:
-            self._calculate_intra_similarities()
+        intra_similarities_ = self._calculate_intra_similarities(min_clusters=min_clusters)
 
-        fig, ax = plt.subplots(figsize=(10, 5))
-        cluster_index = list(range(len(self.intra_similarities_)))
+        fig, ax = plt.subplots(figsize=(15, 5))
+        cluster_index = list(range(len(intra_similarities_)))
         ax.set_xlabel("Cluster index")
-        ax.set_ylabel("Similarity")
+        ax.set_ylabel("Similarity",)
         ax.set_xticks(cluster_index)
         ax.set_xticklabels(cluster_index)
+        ax.tick_params(axis='x', labelrotation=90)
         ax.set_yticks(np.arange(0.1, 1.0, 0.1))
         ax.set_title("Intra-cluster Tanimoto similarity", fontsize=13)
-        r = ax.violinplot(self.intra_similarities_, cluster_index,
+        r = ax.violinplot(intra_similarities_, cluster_index,
                           showmeans=True, showmedians=True, showextrema=False)
 
         # Setting colors

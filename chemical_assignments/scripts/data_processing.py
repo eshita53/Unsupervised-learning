@@ -3,7 +3,6 @@ from rdkit.Chem import Descriptors
 from rdkit.Chem import AllChem
 from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import RDKFingerprint
-from rdkit.Chem.rdFingerprintGenerator import GetRDKitFPGenerator
 import pandas as pd
 import numpy as np
 
@@ -100,13 +99,13 @@ class Preprocessing:
         except:
             return False
     
-    def get_features(self, fingetprint_type):
+    def get_features(self, fingerprint_type):
         """ Generates a complete feature matrix combining molecular 
         fingerprints and chemical properties and returns it
         """
         self.remove_invalid_smile()
         self.convert_smile_to_mol()
-        self.finger_print_add(fingetprint_type)
+        self.finger_print_add(fingerprint_type)
         fp_df = self.get_fp_csmile_df() 
         chem_prop_df = self.get_mole_prop_df()
         
