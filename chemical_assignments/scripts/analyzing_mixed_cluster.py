@@ -46,6 +46,7 @@ def visualize_mixed_clusters(combined_df, mixed_stats, n_samples=50000, output_d
     os.makedirs(output_dir, exist_ok=True)
     plt.savefig(f"{output_dir}/mixed_clusters_umap.png",
                 bbox_inches='tight', dpi=300)
+    plt.show()
     plt.close()
 
     # Return coordinates for further analysis
